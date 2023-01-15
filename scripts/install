@@ -68,21 +68,19 @@ ynh_setup_source --dest_dir="$final_path"
 
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+chown -R $app:$app "$final_path"
 chmod +x $final_path/smp-server
 
 #=================================================
 # SPECIFIC SETUP
 #=================================================
-# ...
-#=================================================
-
-#smp-server init -l -n smp.$domain
 
 pushd "$final_path"
 	public_ip4="$(curl -s ip.yunohost.org)" || true
-	#yes | ./smp-server init -l --ip $public_ip4
+	yes | ./smp-server init -l --ip $public_ip4
 popd
+
+chown -R $app:$app "/etc/opt/simplex"
 
 #=================================================
 # SETUP SYSTEMD
