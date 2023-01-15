@@ -31,7 +31,7 @@ app=$YNH_APP_INSTANCE_NAME
 #=================================================
 ynh_script_progression --message="Validating installation parameters..." --weight=1
 
-final_path=/etc/opt/$app
+final_path=/usr/local/bin/$app
 test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
 
 #=================================================
