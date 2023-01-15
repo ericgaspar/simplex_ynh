@@ -86,7 +86,13 @@ chmod +x $final_path/smp-server
 # ...
 #=================================================
 
-smp-server init -l -n smp.$domain
+#smp-server init -l -n smp.$domain
+
+
+pushd "$final_path"
+	public_ip4="$(curl -s ip.yunohost.org)" || true
+	smp-server init -l --ip $public_ip4
+popd
 
 #=================================================
 # SETUP SYSTEMD
