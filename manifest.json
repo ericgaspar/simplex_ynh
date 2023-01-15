@@ -11,7 +11,6 @@
     "upstream": {
         "license": "AGPL-3.0",
         "website": "https://simplex.chat/",
-        "demo": "https://demo.example.com",
         "admindoc": "https://yunohost.org/packaging_apps",
         "code": "https://github.com/simplex-chat/simplex-chat"
     },
@@ -24,19 +23,12 @@
         "yunohost": ">= 11.0.9"
     },
     "multi_instance": false,
-    "services": [
-        "nginx"
-    ],
+    "services": [],
     "arguments": {
         "install": [
             {
                 "name": "domain",
                 "type": "domain"
-            },
-            {
-                "name": "is_public",
-                "type": "boolean",
-                "default": true
             }
         ]
     }
