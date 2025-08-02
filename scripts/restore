@@ -8,7 +8,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Restoring the app main directory..."
 
-ynh_restore "/var/www/simplex"
+ynh_restore "$install_dir"
 
 #=================================================
 # RESTORE THE DATA DIRECTORY
