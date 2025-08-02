@@ -43,7 +43,7 @@ chown -R $app:$app "/etc/opt/simplex"
 #=================================================
 #ynh_script_progression "Adding $app's configuration..."
 
-#ynh_config_add --template="file-server.ini" --destination="/etc/opt/simplex-xftp/file-server.ini"
+ynh_config_add --template="smp-server.ini" --destination="/etc/opt/simplex/smp-server.ini"
 
 #=================================================
 # SYSTEM CONFIGURATION
