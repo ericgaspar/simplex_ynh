@@ -67,4 +67,3 @@ ram.runtime = "50M"
     [resources.ports]
     main.default = 5223
     main.exposed = "TCP"
-    web.default = 8001
