@@ -4,13 +4,6 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# RETRIEVE ARGUMENTS FROM THE MANIFEST
-#=================================================
-
-#storage_quota="20gb"
-#ynh_app_setting_set --key=storage_quota --value=$storage_quota
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Setting up source files..."
@@ -26,8 +19,8 @@ chmod +x $install_dir/smp-server
 # SPECIFIC SETUP
 #=================================================
 
-public_ip4="$(curl -s https://ip.yunohost.org)" || true
-ynh_app_setting_set --key=public_ip4 --value=$public_ip4
+#public_ip4="$(curl -s https://ip.yunohost.org)" || true
+#ynh_app_setting_set --key=public_ip4 --value=$public_ip4
 
 pushd "$install_dir"
 	ynh_hide_warnings ynh_exec_as_app ./smp-server init -y -l --no-password -n $domain #--ip $public_ip4
@@ -41,7 +34,7 @@ chown -R $app:$app "/etc/opt/simplex"
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-#ynh_script_progression "Adding $app's configuration..."
+ynh_script_progression "Adding $app's configuration..."
 
 ynh_config_add --template="smp-server.ini" --destination="/etc/opt/simplex/smp-server.ini"
 
