@@ -62,7 +62,8 @@ ram.runtime = "50M"
     [resources.data_dir]
 
     [resources.permissions]
-
+    main.url = "/"
+    
     [resources.ports]
     main.default = 5223
     main.exposed = "TCP"

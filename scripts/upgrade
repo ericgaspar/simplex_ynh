@@ -11,20 +11,13 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service=$app --action="stop" --log_path="systemd"
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-#ynh_script_progression "Ensuring downward compatibility..."
-
-# ynh_app_setting_set_default --key=storage_quota --value="20gb"
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir"
+ynh_setup_source --dest_dir="/usr/local/bin/$app"
 
-chmod +x $install_dir/smp-server
+chmod +x /usr/local/bin/$app/smp-server
 
 #=================================================
 # ADD A CONFIGURATION
@@ -38,8 +31,9 @@ chmod +x $install_dir/smp-server
 #=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
 
+ynh_config_add_nginx
+
 ynh_config_add_systemd
-ynh_config_add_systemd --service=xftp --template=../conf/xftp.systemd.service
 
 yunohost service add $app --description="Messaging platform" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
 
