@@ -45,10 +45,14 @@ chown -R $app:$app "/etc/opt/simplex"
 
 ynh_config_add --template="smp-server.ini" --destination="/etc/opt/simplex/smp-server.ini"
 
+chown $app:$app "/etc/opt/simplex/smp-server.ini"
+
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
 ynh_script_progression "Adding system configurations related to $app..."
+
+ynh_config_add_nginx
 
 ynh_config_add_systemd
 
