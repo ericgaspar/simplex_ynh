@@ -10,8 +10,8 @@ ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="/usr/local/bin/$app"
 
-mkdir -p /etc/opt/simplex /var/opt/simplex
-chown -R $app:$app /etc/opt/simplex /var/opt/simplex
+mkdir -p /etc/opt/simplex /var/opt/simplex /var/www/simplex/smp-server
+chown -R $app:$app /etc/opt/simplex /var/opt/simplex /var/www/simplex/smp-server
 
 chmod +x /usr/local/bin/$app/smp-server
 
