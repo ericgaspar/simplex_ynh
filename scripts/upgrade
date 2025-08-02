@@ -9,7 +9,6 @@ source /usr/share/yunohost/helpers
 ynh_script_progression "Stopping $app's systemd service..."
 
 ynh_systemctl --service=$app --action="stop" --log_path="systemd"
-ynh_systemctl --service=xftp --action="stop" --log_path="systemd"
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
@@ -24,33 +23,8 @@ ynh_systemctl --service=xftp --action="stop" --log_path="systemd"
 ynh_script_progression "Upgrading source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
-ynh_setup_source --dest_dir="$install_dir" --source_id="xftp"
 
 chmod +x $install_dir/smp-server
-chmod +x $install_dir/xftp-server
-
-#=================================================
-# SPECIFIC SETUP
-#=================================================
-
-if [ ! -d /etc/opt/simplex-xftp ]; then
-
-	mkdir -p "/etc/opt/simplex-xftp"
-
-	public_ip4="$(curl -s https://ip.yunohost.org)" || true
-	ynh_app_setting_set --key=public_ip4 --value=$public_ip4
-
-	pushd "$install_dir"
-		./xftp-server init --ip $public_ip4 --quota '20gb' --store-log --path $data_dir
-	popd
-
-	xftp_fingerprint=$(cat /etc/opt/simplex-xftp/fingerprint)
-	ynh_app_setting_set --key=xftp_fingerprint --value=$xftp_fingerprint
-
-	ynh_replace --match="port: 443" --replace="port: $port_xftp" --file="/etc/opt/simplex-xftp/file-server.ini"
-
-	chown -R $app:$app /etc/opt/simplex-xftp /var/opt/simplex-xftp
-fi
 
 #=================================================
 # ADD A CONFIGURATION
@@ -68,7 +42,6 @@ ynh_config_add_systemd
 ynh_config_add_systemd --service=xftp --template=../conf/xftp.systemd.service
 
 yunohost service add $app --description="Messaging platform" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
-yunohost service add xftp --description="Messaging platform" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port_xftp"
 
 #=================================================
 # START SYSTEMD SERVICE
@@ -76,7 +49,6 @@ yunohost service add xftp --description="Messaging platform" --log="/var/log/$ap
 ynh_script_progression "Starting $app's systemd service..."
 
 ynh_systemctl --service=$app --action="start" --log_path="systemd"
-ynh_systemctl --service=xftp --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT

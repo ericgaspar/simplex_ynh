@@ -22,16 +22,14 @@ ynh_backup "$data_dir"
 #=================================================
 
 ynh_backup "/etc/opt/simplex"
-ynh_backup "/etc/opt/simplex-xftp"
+
 ynh_backup "/var/opt/simplex"
-ynh_backup "/var/opt/simplex-xftp"
 
 #=================================================
 # BACKUP SYSTEMD
 #=================================================
 
 ynh_backup "/etc/systemd/system/$app.service"
-ynh_backup "/etc/systemd/system/xftp.service"
 
 #=================================================
 # END OF SCRIPT

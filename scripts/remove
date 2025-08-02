@@ -10,16 +10,12 @@ ynh_script_progression "Removing system configurations related to $app..."
 
 if ynh_hide_warnings yunohost service status $app >/dev/null; then
 	yunohost service remove $app
-	yunohost service remove xftp
 fi
 
 ynh_config_remove_systemd
-ynh_config_remove_systemd xftp
 
 ynh_safe_rm "/etc/opt/simplex"
-ynh_safe_rm "/etc/opt/simplex-xftp"
 ynh_safe_rm "/var/opt/simplex"
-ynh_safe_rm "/var/opt/simplex-xftp"
 
 #=================================================
 # END OF SCRIPT
