@@ -14,6 +14,7 @@ mkdir -p /etc/opt/simplex /var/opt/simplex /var/www/simplex
 chown -R $app:$app /etc/opt/simplex /var/opt/simplex /var/www/simplex
 
 chmod +x /usr/local/bin/$app/smp-server
+chown -R $app:www-data "/var/www/simplex"
 
 #=================================================
 # SPECIFIC SETUP
