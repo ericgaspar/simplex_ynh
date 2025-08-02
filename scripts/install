@@ -30,7 +30,7 @@ public_ip4="$(curl -s https://ip.yunohost.org)" || true
 ynh_app_setting_set --key=public_ip4 --value=$public_ip4
 
 pushd "$install_dir"
-	./smp-server init --no-password --ip $public_ip4 --store-log --yes
+	./smp-server init -y -l --no-password -n $domain #--ip $public_ip4
 popd
 
 fingerprint=$(cat /etc/opt/simplex/fingerprint)
